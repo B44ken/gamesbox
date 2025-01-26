@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link, redirect } from 'react-router'
 
 function GameCard({ game }) {
     return (
@@ -21,6 +22,10 @@ function GameCard({ game }) {
 export default function MainScreen({ supabaseClient }) {
     async function signOut() {
         const { error } = await supabaseClient.auth.signOut()
+        if (error) {
+            console.error('Error signing out:', error.message)
+            return
+        }
     }
 
     const [games, setGames] = useState([])
@@ -37,8 +42,6 @@ export default function MainScreen({ supabaseClient }) {
         }
         fetchGames()
     }, [])
-
-    console.log(games)
 
     return (
         <>
