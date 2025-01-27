@@ -8,6 +8,7 @@ createRoot(document.getElementById('root')).render(
     <Routes>
       <Route path="/" element={<App showWhichPage={"landing"}/>} />
       <Route path="/authentication" element={<App showWhichPage={"authentication"}/>} />
+      <Route path="/mini" element={<App showWhichPage={"crossword"}/>} />
     </Routes>
   </BrowserRouter>,
 )

@@ -5,6 +5,7 @@ import LandingPage from './components/Home/LandingPage'
 import Authentication from './components/Home/Authentication'
 import MainScreen from './components/Games/MainScreen'
 import { Link, redirect } from 'react-router'
+import CrosswordGame from './components/Crossword/CrosswordGame'
 
 const supabase = createClient(
     'https://gwignjjcacmcoiguekfm.supabase.co/',
@@ -28,13 +29,21 @@ function App({ showWhichPage }) {
         return () => subscription.unsubscribe()
     }, [])
 
-    if (!session && showWhichPage === 'landing') {
-        return <LandingPage />
-    } else if (!session && showWhichPage === 'authentication') {
-        return <Authentication supabaseClient={supabase} />
-    } else if (session) {
-        return <MainScreen supabaseClient={supabase} />
+    if (!session) {
+        if (showWhichPage === 'landing')
+            return <LandingPage />
+
+        else if (showWhichPage === 'authentication')
+            return <Authentication supabaseClient={supabase} />
     }
+
+    if (showWhichPage === 'landing')
+        return <MainScreen supabaseClient={supabase} />
+
+    else if (showWhichPage === 'crossword')
+        return <CrosswordGame supabaseClient={supabase} />
+
+    return <h1>Unknown Page</h1>
 }
 
 export default App
